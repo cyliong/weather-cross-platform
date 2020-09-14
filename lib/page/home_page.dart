@@ -17,12 +17,12 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {},
           )
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Text("No weather data"),
       ),
     );
