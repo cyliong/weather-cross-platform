@@ -65,8 +65,44 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: const Center(
-        child: Text("No weather data"),
+      body: LayoutBuilder(
+        builder: (context, viewportConstraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: viewportConstraints.maxHeight,
+            ),
+            child: Center(
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.cloud_off,
+                    size: 80,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    'No weather data',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 50,
+                    ),
+                    child: Text(
+                      'Press the Search button to begin.',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.pink,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
