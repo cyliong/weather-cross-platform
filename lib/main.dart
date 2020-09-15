@@ -13,6 +13,10 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        snackBarTheme: const SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.pink,
+        ),
       ),
       home: HomePage(title: _title),
       debugShowCheckedModeBanner: false,
