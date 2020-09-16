@@ -48,11 +48,17 @@ class _HomePageState extends State<HomePage> {
                             content: Text('Please enter a city'),
                           ));
                         } else {
-                          _weather = await _weatherService.getWeather(text);
-                          setState(() {
-                            _weather = _weather;
-                            _setAppBar();
-                          });
+                          try {
+                            _weather = await _weatherService.getWeather(text);
+                            setState(() {
+                              _weather = _weather;
+                              _setAppBar();
+                            });
+                          } catch (e) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('$e'),
+                            ));
+                          }
                         }
                       },
                     );
