@@ -78,70 +78,74 @@ class _HomePageState extends State<HomePage> {
               minHeight: viewportConstraints.maxHeight,
             ),
             child: Center(
-              child: _weather == null
-                  ? Column(
-                      children: [
-                        Icon(
-                          Icons.cloud_off,
-                          size: 80,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          'No weather data',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 50,
-                          ),
-                          child: Text(
-                            'Press the Search button to begin.',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.pink,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        Text(
-                          '${_weather.city}, ${_weather.countryCode}',
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.indigo),
-                        ),
-                        Text(
-                          '${_weather.temperature.toStringAsFixed(0)}°C',
-                          style: TextStyle(
-                            fontSize: 80,
-                            color: Colors.lightBlue,
-                          ),
-                        ),
-                        Image.network(
-                          _weather.iconUrl,
-                        ),
-                        Text('${_weather.condition}'),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Text(
-                            'Humidity: ${_weather.humidity}%',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+              child: _weather == null ? _buildEmptyView() : _buildWeatherView(),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Column _buildEmptyView() {
+    return Column(
+      children: [
+        Icon(
+          Icons.cloud_off,
+          size: 80,
+          color: Colors.grey,
+        ),
+        Text(
+          'No weather data',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.grey,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 50,
+          ),
+          child: Text(
+            'Press the Search button to begin.',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.pink,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _buildWeatherView() {
+    return Column(
+      children: [
+        Text(
+          '${_weather.city}, ${_weather.countryCode}',
+          style: TextStyle(
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.indigo),
+        ),
+        Text(
+          '${_weather.temperature.toStringAsFixed(0)}°C',
+          style: TextStyle(
+            fontSize: 80,
+            color: Colors.lightBlue,
+          ),
+        ),
+        Image.network(
+          _weather.iconUrl,
+        ),
+        Text('${_weather.condition}'),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            'Humidity: ${_weather.humidity}%',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
