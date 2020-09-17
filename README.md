@@ -6,8 +6,9 @@ It showcases various Flutter programming techniques, including:
 - Asynchronous network requests using the `http` package
 - Convert JSON response into a model object
 - Display images from the internet using `Image.network()`
+- Display data using `FutureBuilder` widget
 
-# Features
+## Features
 - Search by city name
 - Display the city's weather condition
 
