@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Icon _activeIcon;
   Widget _titleBar;
 
-  Weather _weather;
+  Future<Weather> _weatherFuture;
 
   @override
   void initState() {
@@ -42,16 +42,15 @@ class _HomePageState extends State<HomePage> {
                   if (_activeIcon.icon == Icons.search) {
                     _activeIcon = _cancelIcon;
                     _titleBar = _SearchBar(
-                      onSearched: (text) async {
+                      onSearched: (text) {
                         if (text?.trim()?.isEmpty ?? true) {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('Please enter a city'),
                           ));
                         } else {
                           try {
-                            _weather = await _weatherService.getWeather(text);
+                            _weatherFuture = _weatherService.getWeather(text);
                             setState(() {
-                              _weather = _weather;
                               _setAppBar();
                             });
                           } catch (e) {
@@ -78,9 +77,19 @@ class _HomePageState extends State<HomePage> {
               minHeight: viewportConstraints.maxHeight,
             ),
             child: Center(
-              child: _weather == null
-                  ? _buildEmptyView()
-                  : _buildWeatherView(_weather),
+              child: FutureBuilder<Weather>(
+                  future: _weatherFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.none) {
+                      return _buildEmptyView();
+                    } else if (snapshot.hasData) {
+                      return _buildWeatherView(snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  }),
             ),
           ),
         ),
