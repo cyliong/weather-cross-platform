@@ -78,7 +78,9 @@ class _HomePageState extends State<HomePage> {
               minHeight: viewportConstraints.maxHeight,
             ),
             child: Center(
-              child: _weather == null ? _buildEmptyView() : _buildWeatherView(),
+              child: _weather == null
+                  ? _buildEmptyView()
+                  : _buildWeatherView(_weather),
             ),
           ),
         ),
@@ -117,29 +119,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column _buildWeatherView() {
+  Column _buildWeatherView(Weather weather) {
     return Column(
       children: [
         Text(
-          '${_weather.city}, ${_weather.countryCode}',
+          '${weather.city}, ${weather.countryCode}',
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.indigo),
         ),
         Text(
-          '${_weather.temperature.toStringAsFixed(0)}°C',
+          '${weather.temperature.toStringAsFixed(0)}°C',
           style: TextStyle(
             fontSize: 80,
             color: Colors.lightBlue,
           ),
         ),
         Image.network(
-          _weather.iconUrl,
+          weather.iconUrl,
         ),
-        Text('${_weather.condition}'),
+        Text('${weather.condition}'),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text(
-            'Humidity: ${_weather.humidity}%',
+            'Humidity: ${weather.humidity}%',
             style: TextStyle(
               fontSize: 20,
             ),
