@@ -1,29 +1,78 @@
-class Weather {
-  static const String _iconBaseUrl = 'http://openweathermap.org/img/wn/';
-  static const String _iconFileExtension = '@2x.png';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'weather.g.dart';
+
+@JsonSerializable(createToJson: false)
+class Weather {
+  @JsonKey(name: 'name')
   final String city;
-  final String countryCode;
-  final double temperature;
-  final int humidity;
-  final String condition;
-  final String iconUrl;
+
+  @JsonKey(name: 'sys')
+  final SystemData systemData;
+
+  @JsonKey(name: 'main')
+  final MainData mainData;
+
+  @JsonKey(name: 'weather')
+  final List<WeatherData> weatherData;
 
   Weather({
     this.city,
-    this.countryCode,
-    this.temperature,
-    this.humidity,
-    this.condition,
-    this.iconUrl,
+    this.systemData,
+    this.mainData,
+    this.weatherData,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) => Weather(
-        city: json['name'],
-        countryCode: json['sys']['country'],
-        temperature: json['main']['temp'],
-        humidity: json['main']['humidity'],
-        condition: json['weather'][0]['main'],
-        iconUrl: _iconBaseUrl + json['weather'][0]['icon'] + _iconFileExtension,
-      );
+  factory Weather.fromJson(Map<String, dynamic> json) =>
+      _$WeatherFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class SystemData {
+  @JsonKey(name: 'country')
+  final String countryCode;
+
+  SystemData({
+    this.countryCode,
+  });
+
+  factory SystemData.fromJson(Map<String, dynamic> json) =>
+      _$SystemDataFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class MainData {
+  @JsonKey(name: 'temp')
+  final double temperature;
+
+  final int humidity;
+
+  MainData({
+    this.temperature,
+    this.humidity,
+  });
+
+  factory MainData.fromJson(Map<String, dynamic> json) =>
+      _$MainDataFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class WeatherData {
+  static const String _iconBaseUrl = 'http://openweathermap.org/img/wn/';
+  static const String _iconFileExtension = '@2x.png';
+
+  @JsonKey(name: 'main')
+  final String condition;
+
+  final String icon;
+
+  WeatherData({
+    this.condition,
+    this.icon,
+  });
+
+  String get iconUrl => _iconBaseUrl + icon + _iconFileExtension;
+
+  factory WeatherData.fromJson(Map<String, dynamic> json) =>
+      _$WeatherDataFromJson(json);
 }
