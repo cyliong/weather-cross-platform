@@ -4,7 +4,7 @@ using the Flutter framework, for both Android and iOS platforms.
 
 It showcases various Flutter programming techniques, including:
 - Asynchronous network requests using the `http` package
-- Convert JSON response into a model object
+- Deserialize JSON response using `json_serializable`
 - Display images from the internet using `Image.network()`
 - Display data using `FutureBuilder` widget
 
