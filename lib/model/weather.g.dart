@@ -9,22 +9,12 @@ part of 'weather.dart';
 Weather _$WeatherFromJson(Map<String, dynamic> json) {
   return Weather(
     city: json['name'] as String,
-    systemData: json['sys'] == null
-        ? null
-        : SystemData.fromJson(json['sys'] as Map<String, dynamic>),
+    countryCode:
+        Weather._countryCodeFromSystemJson(json['sys'] as Map<String, dynamic>),
     mainData: json['main'] == null
         ? null
         : MainData.fromJson(json['main'] as Map<String, dynamic>),
-    weatherData: (json['weather'] as List)
-        ?.map((e) =>
-            e == null ? null : WeatherData.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-  );
-}
-
-SystemData _$SystemDataFromJson(Map<String, dynamic> json) {
-  return SystemData(
-    countryCode: json['country'] as String,
+    weatherData: Weather._weatherDataFromWeatherJson(json['weather'] as List),
   );
 }
 

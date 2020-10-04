@@ -7,18 +7,18 @@ class Weather {
   @JsonKey(name: 'name')
   final String city;
 
-  @JsonKey(name: 'sys')
-  final SystemData systemData;
+  @JsonKey(name: 'sys', fromJson: _countryCodeFromSystemJson)
+  final String countryCode;
 
   @JsonKey(name: 'main')
   final MainData mainData;
 
-  @JsonKey(name: 'weather')
-  final List<WeatherData> weatherData;
+  @JsonKey(name: 'weather', fromJson: _weatherDataFromWeatherJson)
+  final WeatherData weatherData;
 
   Weather({
     this.city,
-    this.systemData,
+    this.countryCode,
     this.mainData,
     this.weatherData,
   });
@@ -26,24 +26,22 @@ class Weather {
   factory Weather.fromJson(Map<String, dynamic> json) =>
       _$WeatherFromJson(json);
 
-  String get countryCode => systemData?.countryCode;
   double get temperature => mainData?.temperature;
   int get humidity => mainData?.humidity;
-  String get condition => weatherData?.first?.condition;
-  String get iconUrl => weatherData?.first?.iconUrl;
-}
+  String get condition => weatherData?.condition;
+  String get iconUrl => weatherData?.iconUrl;
 
-@JsonSerializable(createToJson: false)
-class SystemData {
-  @JsonKey(name: 'country')
-  final String countryCode;
+  static String _countryCodeFromSystemJson(Map<String, dynamic> systemJson) =>
+      systemJson['country'] as String;
 
-  SystemData({
-    this.countryCode,
-  });
-
-  factory SystemData.fromJson(Map<String, dynamic> json) =>
-      _$SystemDataFromJson(json);
+  static WeatherData _weatherDataFromWeatherJson(
+          List<dynamic> weatherJsonArray) =>
+      weatherJsonArray == null || weatherJsonArray.isEmpty
+          ? null
+          : WeatherData(
+              condition: weatherJsonArray.first['main'] as String,
+              icon: weatherJsonArray.first['icon'] as String,
+            );
 }
 
 @JsonSerializable(createToJson: false)
