@@ -132,25 +132,25 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         Text(
-          '${weather.city}, ${weather.systemData.countryCode}',
+          '${weather.city}, ${weather.countryCode}',
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.indigo),
         ),
         Text(
-          '${weather.mainData.temperature.toStringAsFixed(0)}°C',
+          '${weather.temperature.toStringAsFixed(0)}°C',
           style: TextStyle(
             fontSize: 80,
             color: Colors.lightBlue,
           ),
         ),
         Image.network(
-          weather.weatherData.first.iconUrl,
+          weather.iconUrl,
         ),
-        Text('${weather.weatherData.first.condition}'),
+        Text('${weather.condition}'),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text(
-            'Humidity: ${weather.mainData.humidity}%',
+            'Humidity: ${weather.humidity}%',
             style: TextStyle(
               fontSize: 20,
             ),

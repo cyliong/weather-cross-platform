@@ -25,6 +25,12 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) =>
       _$WeatherFromJson(json);
+
+  String get countryCode => systemData?.countryCode;
+  double get temperature => mainData?.temperature;
+  int get humidity => mainData?.humidity;
+  String get condition => weatherData?.first?.condition;
+  String get iconUrl => weatherData?.first?.iconUrl;
 }
 
 @JsonSerializable(createToJson: false)
