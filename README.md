@@ -12,6 +12,9 @@ It showcases various Flutter programming techniques, including:
 - Search by city name
 - Display the city's weather condition
 
+## Dependencies
+- json_serializable
+
 ## Requirements
 - Flutter 1.22.0 or higher
 - Dart 2.10.0 or higher
