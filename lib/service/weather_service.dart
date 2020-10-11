@@ -8,19 +8,13 @@ class WeatherService {
   static const String _baseUrl =
       'https://api.openweathermap.org/data/2.5/weather?appid=$_apiKey&units=metric';
 
-  Future<Weather> getWeatherByCityName(String cityName) async {
-    final searchUrl = '$_baseUrl&q=$cityName';
-    final http.Response response = await http.get(searchUrl);
-    if (response.statusCode == 200) {
-      return Weather.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Unable to load weather data');
-    }
-  }
+  Future<Weather> getWeatherByCityName(String cityName) =>
+      _getWeather('$_baseUrl&q=$cityName');
 
-  Future<Weather> getWeatherByCoordinates(
-      double latitude, double longitude) async {
-    final searchUrl = '$_baseUrl&lat=$latitude&lon=$longitude';
+  Future<Weather> getWeatherByCoordinates(double latitude, double longitude) =>
+      _getWeather('$_baseUrl&lat=$latitude&lon=$longitude');
+
+  Future<Weather> _getWeather(String searchUrl) async {
     final http.Response response = await http.get(searchUrl);
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
