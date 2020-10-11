@@ -49,7 +49,8 @@ class _HomePageState extends State<HomePage> {
                           ));
                         } else {
                           try {
-                            _weatherFuture = _weatherService.getWeather(text);
+                            _weatherFuture =
+                                _weatherService.getWeatherByCityName(text);
                             setState(() {
                               _setAppBar();
                             });

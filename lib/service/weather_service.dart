@@ -5,13 +5,23 @@ import 'package:weather/model/weather.dart';
 
 class WeatherService {
   static const String _apiKey = '';
-  static const String _baseUrl = 'https://api.openweathermap.org/data/2.5';
-  static const String _searchCityUrl =
-      '$_baseUrl/weather?appid=$_apiKey&units=metric&q=';
+  static const String _baseUrl =
+      'https://api.openweathermap.org/data/2.5/weather?appid=$_apiKey&units=metric';
 
-  Future<Weather> getWeather(String cityName) async {
-    final http.Response response = await http.get(_searchCityUrl + cityName);
+  Future<Weather> getWeatherByCityName(String cityName) async {
+    final searchUrl = '$_baseUrl&q=$cityName';
+    final http.Response response = await http.get(searchUrl);
+    if (response.statusCode == 200) {
+      return Weather.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Unable to load weather data');
+    }
+  }
 
+  Future<Weather> getWeatherByCoordinates(
+      double latitude, double longitude) async {
+    final searchUrl = '$_baseUrl&lat=$latitude&lon=$longitude';
+    final http.Response response = await http.get(searchUrl);
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
     } else {
