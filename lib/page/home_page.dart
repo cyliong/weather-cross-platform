@@ -100,26 +100,29 @@ class _HomePageState extends State<HomePage> {
   Column _buildEmptyView() {
     return Column(
       children: [
-        Icon(
-          Icons.cloud_off,
-          size: 80,
-          color: Colors.grey,
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text(
+            'Use current location',
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
         ),
-        Text(
-          'No weather data',
+        const Text(
+          'or',
           style: TextStyle(
             fontSize: 20,
-            color: Colors.grey,
           ),
         ),
-        Padding(
+        const Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 50,
+            vertical: 10,
           ),
-          child: Text(
-            'Press the Search button to begin.',
+          child: const Text(
+            'press the Search button to begin.',
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 20,
               color: Colors.pink,
             ),
           ),
