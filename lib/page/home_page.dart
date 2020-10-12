@@ -101,18 +101,42 @@ class _HomePageState extends State<HomePage> {
   Column _buildEmptyView() {
     return Column(
       children: [
-        ElevatedButton(
+        Icon(
+          Icons.cloud_off,
+          size: 120,
+          color: Colors.grey,
+        ),
+        Text(
+          'No weather data',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        ElevatedButton.icon(
           onPressed: () {
             setState(() {
               _weatherFuture = _weatherService.getWeatherByCurrentLocation();
             });
           },
-          child: const Text(
+          icon: const Icon(
+            Icons.my_location,
+          ),
+          label: const Text(
             'Use current location',
             style: TextStyle(
               fontSize: 20,
             ),
           ),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(10),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
         ),
         const Text(
           'or',
@@ -120,16 +144,14 @@ class _HomePageState extends State<HomePage> {
             fontSize: 20,
           ),
         ),
-        const Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-          ),
-          child: const Text(
-            'press the Search button to begin.',
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.pink,
-            ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          'press the Search button to begin.',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.pink,
           ),
         ),
       ],
