@@ -102,7 +102,11 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              _weatherFuture = _weatherService.getWeatherByCurrentLocation();
+            });
+          },
           child: const Text(
             'Use current location',
             style: TextStyle(
