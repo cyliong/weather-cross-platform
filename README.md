@@ -7,13 +7,16 @@ It showcases various Flutter programming techniques, including:
 - Deserialize JSON response using `json_serializable`
 - Display images from the internet using `Image.network()`
 - Display data using `FutureBuilder` widget
+- Find current location using `geolocator`
 
 ## Features
 - Search by city name
 - Display the city's weather condition
+- Detect the current location and display its weather condition
 
 ## Dependencies
 - json_serializable
+- geolocator
 
 ## Requirements
 - Flutter 1.22.0 or higher
