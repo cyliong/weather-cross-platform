@@ -11,10 +11,20 @@ Weather _$WeatherFromJson(Map<String, dynamic> json) {
     city: json['name'] as String,
     countryCode:
         Weather._countryCodeFromSystemJson(json['sys'] as Map<String, dynamic>),
+    coordinates: json['coord'] == null
+        ? null
+        : Coordinates.fromJson(json['coord'] as Map<String, dynamic>),
     mainData: json['main'] == null
         ? null
         : MainData.fromJson(json['main'] as Map<String, dynamic>),
     weatherData: Weather._weatherDataFromWeatherJson(json['weather'] as List),
+  );
+}
+
+Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) {
+  return Coordinates(
+    latitude: (json['lat'] as num)?.toDouble(),
+    longitude: (json['lon'] as num)?.toDouble(),
   );
 }
 

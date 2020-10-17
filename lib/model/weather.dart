@@ -10,6 +10,9 @@ class Weather {
   @JsonKey(name: 'sys', fromJson: _countryCodeFromSystemJson)
   final String countryCode;
 
+  @JsonKey(name: 'coord')
+  final Coordinates coordinates;
+
   @JsonKey(name: 'main')
   final MainData mainData;
 
@@ -19,6 +22,7 @@ class Weather {
   Weather({
     this.city,
     this.countryCode,
+    this.coordinates,
     this.mainData,
     this.weatherData,
   });
@@ -42,6 +46,23 @@ class Weather {
               condition: weatherJsonArray.first['main'] as String,
               icon: weatherJsonArray.first['icon'] as String,
             );
+}
+
+@JsonSerializable(createToJson: false)
+class Coordinates {
+  @JsonKey(name: 'lat')
+  final double latitude;
+
+  @JsonKey(name: 'lon')
+  final double longitude;
+
+  Coordinates({
+    this.latitude,
+    this.longitude,
+  });
+
+  factory Coordinates.fromJson(Map<String, dynamic> json) =>
+      _$CoordinatesFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
