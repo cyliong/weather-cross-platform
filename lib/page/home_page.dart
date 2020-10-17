@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/weather.dart';
 import 'package:weather/service/weather_service.dart';
 
@@ -14,6 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const Icon _searchIcon = Icon(Icons.search);
   static const Icon _cancelIcon = Icon(Icons.cancel);
+
+  static const String _latitudePreferencesKey = 'lat';
+  static const String _longitudePreferencesKey = 'lon';
 
   final WeatherService _weatherService = WeatherService();
 
@@ -51,6 +55,7 @@ class _HomePageState extends State<HomePage> {
                           try {
                             _weatherFuture =
                                 _weatherService.getWeatherByCityName(text);
+                            _saveCoordinates();
                             setState(() {
                               _setAppBar();
                             });
@@ -193,6 +198,13 @@ class _HomePageState extends State<HomePage> {
   void _setAppBar() {
     _activeIcon = _searchIcon;
     _titleBar = Text(widget.title);
+  }
+
+  void _saveCoordinates() async {
+    final weather = await _weatherFuture;
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setDouble(_latitudePreferencesKey, weather.coordinates.latitude);
+    prefs.setDouble(_longitudePreferencesKey, weather.coordinates.longitude);
   }
 }
 
