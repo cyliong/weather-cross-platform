@@ -125,6 +125,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             setState(() {
               _weatherFuture = _weatherService.getWeatherByCurrentLocation();
+              _saveCoordinates();
             });
           },
           icon: const Icon(
