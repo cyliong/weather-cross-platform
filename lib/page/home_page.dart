@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _setAppBar();
+    _loadWeatherBySavedCoordinates();
   }
 
   @override
@@ -199,6 +200,18 @@ class _HomePageState extends State<HomePage> {
   void _setAppBar() {
     _activeIcon = _searchIcon;
     _titleBar = Text(widget.title);
+  }
+
+  void _loadWeatherBySavedCoordinates() async {
+    final prefs = await SharedPreferences.getInstance();
+    final latitude = prefs.getDouble(_latitudePreferencesKey);
+    final longitude = prefs.getDouble(_longitudePreferencesKey);
+    if (latitude != null && longitude != null) {
+      setState(() {
+        _weatherFuture =
+            _weatherService.getWeatherByCoordinates(latitude, longitude);
+      });
+    }
   }
 
   void _saveCoordinates() async {
