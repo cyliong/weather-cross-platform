@@ -8,15 +8,18 @@ It showcases various Flutter programming techniques, including:
 - Display images from the internet using `Image.network()`
 - Display data using `FutureBuilder` widget
 - Find current location using `geolocator`
+- Store key-value data using `shared_preferences`
 
 ## Features
 - Search by city name
 - Display the city's weather condition
 - Detect the current location and display its weather condition
+- Remember previously searched location
 
 ## Dependencies
 - json_serializable
 - geolocator
+- shared_preferences
 
 ## Requirements
 - Flutter 1.22.0 or higher
