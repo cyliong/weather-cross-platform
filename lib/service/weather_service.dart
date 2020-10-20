@@ -30,9 +30,11 @@ class WeatherService {
   }
 
   Future<Position> _getCurrentLocation() async {
-    bool isLocationServiceAvailable = await isLocationServiceEnabled();
+    bool isLocationServiceAvailable =
+        await Geolocator.isLocationServiceEnabled();
     if (isLocationServiceAvailable) {
-      return getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+      return Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
     } else {
       throw 'Location service is disabled';
     }
