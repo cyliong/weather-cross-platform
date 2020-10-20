@@ -9,6 +9,7 @@ It showcases various Flutter programming techniques, including:
 - Display data using `FutureBuilder` widget
 - Find current location using `geolocator`
 - Store key-value data using `shared_preferences`
+- Singleton pattern with factory constructor
 
 ## Features
 - Search by city name
