@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/weather.dart';
 import 'package:weather/service/weather_service.dart';
+import 'package:weather/storage/storage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -15,9 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const Icon _searchIcon = Icon(Icons.search);
   static const Icon _cancelIcon = Icon(Icons.cancel);
-
-  static const String _latitudePreferencesKey = 'lat';
-  static const String _longitudePreferencesKey = 'lon';
 
   final WeatherService _weatherService = WeatherService();
 
@@ -203,22 +200,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loadWeatherBySavedCoordinates() async {
-    final prefs = await SharedPreferences.getInstance();
-    final latitude = prefs.getDouble(_latitudePreferencesKey);
-    final longitude = prefs.getDouble(_longitudePreferencesKey);
-    if (latitude != null && longitude != null) {
+    final coordinates = await Storage().getSavedCoordinates();
+    if (coordinates.latitude != null && coordinates.longitude != null) {
       setState(() {
-        _weatherFuture =
-            _weatherService.getWeatherByCoordinates(latitude, longitude);
+        _weatherFuture = _weatherService.getWeatherByCoordinates(
+            coordinates.latitude, coordinates.longitude);
       });
     }
   }
 
   void _saveCoordinates() async {
     final weather = await _weatherFuture;
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setDouble(_latitudePreferencesKey, weather.coordinates.latitude);
-    prefs.setDouble(_longitudePreferencesKey, weather.coordinates.longitude);
+    Storage().saveCoordinates(Coordinates(
+      latitude: weather.coordinates.latitude,
+      longitude: weather.coordinates.longitude,
+    ));
   }
 }
 
