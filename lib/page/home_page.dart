@@ -84,12 +84,15 @@ class _HomePageState extends State<HomePage> {
               child: FutureBuilder<Weather>(
                   future: _weatherFuture,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.none) {
-                      return _buildEmptyView();
-                    } else if (snapshot.hasData) {
-                      return _buildWeatherView(snapshot.data);
-                    } else if (snapshot.hasError) {
+                    if (snapshot.hasError) {
                       return Text("${snapshot.error}");
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return _buildWeatherView(snapshot.data);
+                      } else {
+                        return _buildEmptyView();
+                      }
                     } else {
                       return CircularProgressIndicator();
                     }
@@ -201,12 +204,14 @@ class _HomePageState extends State<HomePage> {
 
   void _loadWeatherBySavedCoordinates() async {
     final coordinates = await Storage().getSavedCoordinates();
-    if (coordinates.latitude != null && coordinates.longitude != null) {
-      setState(() {
+    setState(() {
+      if (coordinates.latitude != null && coordinates.longitude != null) {
         _weatherFuture = _weatherService.getWeatherByCoordinates(
             coordinates.latitude, coordinates.longitude);
-      });
-    }
+      } else {
+        _weatherFuture = Future<Weather>.value(null);
+      }
+    });
   }
 
   void _saveCoordinates() async {
