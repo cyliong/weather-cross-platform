@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:weather/model/weather.dart';
 import 'package:weather/service/weather_service.dart';
 import 'package:weather/storage/storage.dart';
@@ -16,8 +19,9 @@ class _HomePageState extends State<HomePage> {
   static const Icon _searchIcon = Icon(Icons.search);
   static const Icon _cancelIcon = Icon(Icons.cancel);
 
-  final WeatherService _weatherService = WeatherService();
+  final _client = Client();
 
+  WeatherService _weatherService;
   Icon _activeIcon;
   Widget _titleBar;
 
@@ -26,8 +30,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _weatherService = WeatherService(_client);
     _setAppBar();
     _loadWeatherBySavedCoordinates();
+  }
+
+  @override
+  void dispose() {
+    _client.close();
+    super.dispose();
   }
 
   @override
@@ -85,7 +96,14 @@ class _HomePageState extends State<HomePage> {
                   future: _weatherFuture,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
+                      String errorMessage;
+                      if (snapshot.error is HttpException) {
+                        errorMessage =
+                            (snapshot.error as HttpException).message;
+                      } else {
+                        errorMessage = snapshot.error.toString();
+                      }
+                      return Text(errorMessage);
                     } else if (snapshot.connectionState ==
                         ConnectionState.done) {
                       if (snapshot.hasData) {
