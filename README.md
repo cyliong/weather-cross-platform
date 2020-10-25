@@ -10,6 +10,7 @@ It showcases various Flutter programming techniques, including:
 - Find current location using `geolocator`
 - Store key-value data using `shared_preferences`
 - Singleton pattern with factory constructor
+- Unit testing using `mockito`
 
 ## Features
 - Search by city name
@@ -23,7 +24,7 @@ It showcases various Flutter programming techniques, including:
 - shared_preferences
 
 ## Requirements
-- Flutter 1.22.0 or higher
+- Flutter 1.22.2 or higher
 - Dart 2.10.0 or higher
 
 ## Setup
