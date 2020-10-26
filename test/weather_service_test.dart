@@ -26,12 +26,20 @@ void main() {
   });
 
   group('WeatherService', () {
-    test('returns a Weather if the API call completes successfully', () async {
+    test('returns weather data if the API call completes successfully',
+        () async {
       final city = 'Singapore';
       when(client.get(weatherService.getWeatherByCityNameUrl(city)))
           .thenAnswer((_) async => Response(weatherJson, 200));
 
-      expect(await weatherService.getWeatherByCityName(city), isA<Weather>());
+      final weather = await weatherService.getWeatherByCityName(city);
+
+      expect(weather, isA<Weather>());
+      expect(weather.city, 'Singapore');
+      expect(weather.countryCode, 'SG');
+      expect(weather.temperature, 28.6);
+      expect(weather.humidity, 74);
+      expect(weather.condition, 'Rain');
     });
 
     test('throws an exception if the API call completes with an error', () {
