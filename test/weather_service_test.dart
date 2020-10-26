@@ -25,7 +25,7 @@ void main() {
     weatherService = WeatherService(client);
   });
 
-  group('WeatherService', () {
+  group('Get weather by city name', () {
     test(
         'returns weather data if the API call by city name completes successfully',
         () async {
@@ -52,7 +52,9 @@ void main() {
 
       expect(weatherService.getWeatherByCityName(city), throwsException);
     });
+  });
 
+  group('Get weather by coordinates', () {
     test(
         'returns weather data if the API call by coordinates completes successfully',
         () async {
