@@ -25,19 +25,21 @@ void main() {
     weatherService = WeatherService(client);
   });
 
-  test('returns a Weather if the API call completes successfully', () async {
-    final city = 'Singapore';
-    when(client.get(weatherService.getWeatherByCityNameUrl(city)))
-        .thenAnswer((_) async => Response(weatherJson, 200));
+  group('WeatherService', () {
+    test('returns a Weather if the API call completes successfully', () async {
+      final city = 'Singapore';
+      when(client.get(weatherService.getWeatherByCityNameUrl(city)))
+          .thenAnswer((_) async => Response(weatherJson, 200));
 
-    expect(await weatherService.getWeatherByCityName(city), isA<Weather>());
-  });
+      expect(await weatherService.getWeatherByCityName(city), isA<Weather>());
+    });
 
-  test('throws an exception if the API call completes with an error', () {
-    final city = 'Atlantis';
-    when(client.get(weatherService.getWeatherByCityNameUrl(city)))
-        .thenAnswer((_) async => Response('Not Found', 404));
+    test('throws an exception if the API call completes with an error', () {
+      final city = 'Atlantis';
+      when(client.get(weatherService.getWeatherByCityNameUrl(city)))
+          .thenAnswer((_) async => Response('Not Found', 404));
 
-    expect(weatherService.getWeatherByCityName(city), throwsException);
+      expect(weatherService.getWeatherByCityName(city), throwsException);
+    });
   });
 }
