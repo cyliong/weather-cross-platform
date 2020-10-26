@@ -26,7 +26,8 @@ void main() {
   });
 
   group('WeatherService', () {
-    test('returns weather data if the API call completes successfully',
+    test(
+        'returns weather data if the API call by city name completes successfully',
         () async {
       final city = 'Singapore';
       when(client.get(weatherService.getWeatherByCityNameUrl(city)))
@@ -42,12 +43,47 @@ void main() {
       expect(weather.condition, 'Rain');
     });
 
-    test('throws an exception if the API call completes with an error', () {
+    test(
+        'throws an exception if the API call by city name completes with an error',
+        () {
       final city = 'Atlantis';
       when(client.get(weatherService.getWeatherByCityNameUrl(city)))
           .thenAnswer((_) async => Response('Not Found', 404));
 
       expect(weatherService.getWeatherByCityName(city), throwsException);
+    });
+
+    test(
+        'returns weather data if the API call by coordinates completes successfully',
+        () async {
+      final latitude = 1.29, longitude = 103.85;
+      when(client.get(
+              weatherService.getWeatherByCoordinatesUrl(latitude, longitude)))
+          .thenAnswer((_) async => Response(weatherJson, 200));
+
+      final weather =
+          await weatherService.getWeatherByCoordinates(latitude, longitude);
+
+      expect(weather, isA<Weather>());
+      expect(weather.city, 'Singapore');
+      expect(weather.countryCode, 'SG');
+      expect(weather.temperature, 28.6);
+      expect(weather.humidity, 74);
+      expect(weather.condition, 'Rain');
+      expect(weather.coordinates.latitude, latitude);
+      expect(weather.coordinates.longitude, longitude);
+    });
+
+    test(
+        'throws an exception if the API call by coordinates completes with an error',
+        () {
+      final latitude = 0.0, longitude = 0.0;
+      when(client.get(
+              weatherService.getWeatherByCoordinatesUrl(latitude, longitude)))
+          .thenAnswer((_) async => Response('Not Found', 404));
+
+      expect(weatherService.getWeatherByCoordinates(latitude, longitude),
+          throwsException);
     });
   });
 }
