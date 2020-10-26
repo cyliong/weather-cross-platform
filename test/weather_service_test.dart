@@ -17,11 +17,16 @@ const weatherJson = '''
 ''';
 
 void main() {
+  MockClient client;
+  WeatherService weatherService;
+
+  setUp(() {
+    client = MockClient();
+    weatherService = WeatherService(client);
+  });
+
   test('returns a Weather if the API call completes successfully', () async {
     final city = 'Singapore';
-    final client = MockClient();
-    final weatherService = WeatherService(client);
-
     when(client.get(weatherService.getWeatherByCityNameUrl(city)))
         .thenAnswer((_) async => Response(weatherJson, 200));
 
@@ -30,9 +35,6 @@ void main() {
 
   test('throws an exception if the API call completes with an error', () {
     final city = 'Atlantis';
-    final client = MockClient();
-    final weatherService = WeatherService(client);
-
     when(client.get(weatherService.getWeatherByCityNameUrl(city)))
         .thenAnswer((_) async => Response('Not Found', 404));
 
