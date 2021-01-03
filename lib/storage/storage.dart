@@ -2,9 +2,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/weather.dart';
 
 class Storage {
-  static final _instance = Storage._internal();
+  static final _instance = Storage._();
   factory Storage() => _instance;
-  Storage._internal();
+  Storage._();
 
   static const String _latitudePreferencesKey = 'lat';
   static const String _longitudePreferencesKey = 'lon';
