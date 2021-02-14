@@ -17,13 +17,8 @@ const weatherJson = '''
 ''';
 
 void main() {
-  MockClient client;
-  WeatherService weatherService;
-
-  setUp(() {
-    client = MockClient();
-    weatherService = WeatherService(client);
-  });
+  final client = MockClient();
+  final weatherService = WeatherService(client);
 
   group('Get weather by city name', () {
     test(
