@@ -83,7 +83,7 @@ class MainData {
 
 @JsonSerializable(createToJson: false)
 class WeatherData {
-  static const String _iconBaseUrl = 'http://openweathermap.org/img/wn/';
+  static const String _iconBaseUrl = 'https://openweathermap.org/img/wn/';
   static const String _iconFileExtension = '@2x.png';
 
   @JsonKey(name: 'main')
