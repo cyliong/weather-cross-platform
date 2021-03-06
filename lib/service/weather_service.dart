@@ -38,7 +38,7 @@ class WeatherService {
   }
 
   Future<Weather> _getWeather(String searchUrl) async {
-    final response = await _client.get(searchUrl);
+    final response = await _client.get(Uri.parse(searchUrl));
     if (response.statusCode == 200) {
       return Weather.fromJson(json.decode(response.body));
     } else {
