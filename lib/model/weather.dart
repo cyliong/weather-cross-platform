@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'weather.g.dart';
@@ -22,32 +20,30 @@ class Weather {
   final WeatherData weatherData;
 
   Weather({
-    this.city,
-    this.countryCode,
-    this.coordinates,
-    this.mainData,
-    this.weatherData,
+    required this.city,
+    required this.countryCode,
+    required this.coordinates,
+    required this.mainData,
+    required this.weatherData,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) =>
       _$WeatherFromJson(json);
 
-  double get temperature => mainData?.temperature;
-  int get humidity => mainData?.humidity;
-  String get condition => weatherData?.condition;
-  String get iconUrl => weatherData?.iconUrl;
+  double get temperature => mainData.temperature;
+  int get humidity => mainData.humidity;
+  String get condition => weatherData.condition;
+  String get iconUrl => weatherData.iconUrl;
 
   static String _countryCodeFromSystemJson(Map<String, dynamic> systemJson) =>
       systemJson['country'] as String;
 
   static WeatherData _weatherDataFromWeatherJson(
           List<dynamic> weatherJsonArray) =>
-      weatherJsonArray == null || weatherJsonArray.isEmpty
-          ? null
-          : WeatherData(
-              condition: weatherJsonArray.first['main'] as String,
-              icon: weatherJsonArray.first['icon'] as String,
-            );
+      WeatherData(
+        condition: weatherJsonArray.first['main'] as String,
+        icon: weatherJsonArray.first['icon'] as String,
+      );
 }
 
 @JsonSerializable(createToJson: false)
@@ -59,8 +55,8 @@ class Coordinates {
   final double longitude;
 
   Coordinates({
-    this.latitude,
-    this.longitude,
+    required this.latitude,
+    required this.longitude,
   });
 
   factory Coordinates.fromJson(Map<String, dynamic> json) =>
@@ -75,8 +71,8 @@ class MainData {
   final int humidity;
 
   MainData({
-    this.temperature,
-    this.humidity,
+    required this.temperature,
+    required this.humidity,
   });
 
   factory MainData.fromJson(Map<String, dynamic> json) =>
@@ -94,8 +90,8 @@ class WeatherData {
   final String icon;
 
   WeatherData({
-    this.condition,
-    this.icon,
+    required this.condition,
+    required this.icon,
   });
 
   String get iconUrl => _iconBaseUrl + icon + _iconFileExtension;
