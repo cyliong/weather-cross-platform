@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// @dart=2.9
-
 part of 'weather.dart';
 
 // **************************************************************************
@@ -13,26 +11,22 @@ Weather _$WeatherFromJson(Map<String, dynamic> json) {
     city: json['name'] as String,
     countryCode:
         Weather._countryCodeFromSystemJson(json['sys'] as Map<String, dynamic>),
-    coordinates: json['coord'] == null
-        ? null
-        : Coordinates.fromJson(json['coord'] as Map<String, dynamic>),
-    mainData: json['main'] == null
-        ? null
-        : MainData.fromJson(json['main'] as Map<String, dynamic>),
+    coordinates: Coordinates.fromJson(json['coord'] as Map<String, dynamic>),
+    mainData: MainData.fromJson(json['main'] as Map<String, dynamic>),
     weatherData: Weather._weatherDataFromWeatherJson(json['weather'] as List),
   );
 }
 
 Coordinates _$CoordinatesFromJson(Map<String, dynamic> json) {
   return Coordinates(
-    latitude: (json['lat'] as num)?.toDouble(),
-    longitude: (json['lon'] as num)?.toDouble(),
+    latitude: (json['lat'] as num).toDouble(),
+    longitude: (json['lon'] as num).toDouble(),
   );
 }
 
 MainData _$MainDataFromJson(Map<String, dynamic> json) {
   return MainData(
-    temperature: (json['temp'] as num)?.toDouble(),
+    temperature: (json['temp'] as num).toDouble(),
     humidity: json['humidity'] as int,
   );
 }
