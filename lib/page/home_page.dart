@@ -225,11 +225,11 @@ class _HomePageState extends State<HomePage> {
   void _loadWeatherBySavedCoordinates() async {
     final coordinates = await Storage().getSavedCoordinates();
     setState(() {
-      if (coordinates.latitude != null && coordinates.longitude != null) {
+      if (coordinates == null) {
+        _weatherFuture = Future<Weather>.value(null);
+      } else {
         _weatherFuture = _weatherService.getWeatherByCoordinates(
             coordinates.latitude, coordinates.longitude);
-      } else {
-        _weatherFuture = Future<Weather>.value(null);
       }
     });
   }
