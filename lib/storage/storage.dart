@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/model/weather.dart';
 
@@ -13,11 +11,18 @@ class Storage {
 
   final _prefsFuture = SharedPreferences.getInstance();
 
-  Future<Coordinates> getSavedCoordinates() async {
+  Future<Coordinates?> getSavedCoordinates() async {
     final prefs = await _prefsFuture;
+
+    final latitude = prefs.getDouble(_latitudePreferencesKey);
+    if (latitude == null) return null;
+
+    final longitude = prefs.getDouble(_longitudePreferencesKey);
+    if (longitude == null) return null;
+
     return Coordinates(
-      latitude: prefs.getDouble(_latitudePreferencesKey),
-      longitude: prefs.getDouble(_longitudePreferencesKey),
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 
