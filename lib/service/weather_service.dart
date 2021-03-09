@@ -15,12 +15,8 @@ class WeatherService {
   final Client _client;
 
   static WeatherService _instance;
-  factory WeatherService(Client client) {
-    if (_instance == null) {
-      _instance = WeatherService._(client);
-    }
-    return _instance;
-  }
+  factory WeatherService(Client client) =>
+      _instance ?? WeatherService._(client);
   WeatherService._(this._client);
 
   String getWeatherByCityNameUrl(String cityName) => '$_baseUrl&q=$cityName';
