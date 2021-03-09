@@ -28,7 +28,7 @@ class Storage {
 
   void saveCoordinates(Coordinates coordinates) async {
     final prefs = await _prefsFuture;
-    prefs.setDouble(_latitudePreferencesKey, coordinates.latitude);
-    prefs.setDouble(_longitudePreferencesKey, coordinates.longitude);
+    await prefs.setDouble(_latitudePreferencesKey, coordinates.latitude);
+    await prefs.setDouble(_longitudePreferencesKey, coordinates.longitude);
   }
 }
