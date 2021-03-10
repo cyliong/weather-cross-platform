@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -14,7 +12,7 @@ class WeatherService {
 
   final Client _client;
 
-  static WeatherService _instance;
+  static WeatherService? _instance;
   factory WeatherService(Client client) =>
       _instance ?? WeatherService._(client);
   WeatherService._(this._client);
