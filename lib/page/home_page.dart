@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,7 +7,7 @@ import 'package:weather/service/weather_service.dart';
 import 'package:weather/storage/storage.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -23,11 +21,11 @@ class _HomePageState extends State<HomePage> {
 
   final _client = Client();
 
-  WeatherService _weatherService;
-  Icon _activeIcon;
-  Widget _titleBar;
+  late final WeatherService _weatherService;
+  late Icon _activeIcon;
+  late Widget _titleBar;
 
-  Future<Weather> _weatherFuture;
+  Future<Weather?>? _weatherFuture;
 
   @override
   void initState() {
@@ -58,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     _activeIcon = _cancelIcon;
                     _titleBar = _SearchBar(
                       onSearched: (text) {
-                        if (text?.trim()?.isEmpty ?? true) {
+                        if (text.trim().isEmpty) {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('Please enter a city'),
                           ));
@@ -94,7 +92,7 @@ class _HomePageState extends State<HomePage> {
               minHeight: viewportConstraints.maxHeight,
             ),
             child: Center(
-              child: FutureBuilder<Weather>(
+              child: FutureBuilder<Weather?>(
                   future: _weatherFuture,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -109,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     } else if (snapshot.connectionState ==
                         ConnectionState.done) {
                       if (snapshot.hasData) {
-                        return _buildWeatherView(snapshot.data);
+                        return _buildWeatherView(snapshot.data!);
                       } else {
                         return _buildEmptyView();
                       }
@@ -226,7 +224,7 @@ class _HomePageState extends State<HomePage> {
     final coordinates = await Storage().getSavedCoordinates();
     setState(() {
       if (coordinates == null) {
-        _weatherFuture = Future<Weather>.value(null);
+        _weatherFuture = Future<Weather?>.value(null);
       } else {
         _weatherFuture = _weatherService.getWeatherByCoordinates(
             coordinates.latitude, coordinates.longitude);
@@ -236,15 +234,17 @@ class _HomePageState extends State<HomePage> {
 
   void _saveCoordinates() async {
     final weather = await _weatherFuture;
-    Storage().saveCoordinates(Coordinates(
-      latitude: weather.coordinates.latitude,
-      longitude: weather.coordinates.longitude,
-    ));
+    if (weather != null) {
+      Storage().saveCoordinates(Coordinates(
+        latitude: weather.coordinates.latitude,
+        longitude: weather.coordinates.longitude,
+      ));
+    }
   }
 }
 
 class _SearchBar extends StatelessWidget {
-  _SearchBar({this.onSearched});
+  _SearchBar({required this.onSearched});
 
   final ValueChanged<String> onSearched;
 
