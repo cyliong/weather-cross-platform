@@ -1,12 +1,11 @@
-// @dart=2.9
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:weather/model/weather.dart';
 import 'package:weather/service/weather_service.dart';
 
-class MockClient extends Mock implements Client {}
+import 'weather_service_test.mocks.dart';
 
 const weatherJson = '''
 {
@@ -18,6 +17,7 @@ const weatherJson = '''
 }
 ''';
 
+@GenerateMocks([Client])
 void main() {
   final client = MockClient();
   final weatherService = WeatherService(client);
