@@ -11,6 +11,7 @@ It showcases various Flutter programming techniques, including:
 - Store key-value data using `shared_preferences`
 - Singleton pattern with factory constructor
 - Unit testing using `mockito`
+- Sound null safety
 
 ## Features
 - Search by city name
@@ -24,7 +25,7 @@ It showcases various Flutter programming techniques, including:
 - shared_preferences
 
 ## Requirements
-- Flutter 2.0.1 or higher
+- Flutter 2.0.2 or higher
 - Dart 2.12.0 or higher
 
 ## Setup
