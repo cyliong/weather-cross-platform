@@ -15,7 +15,7 @@ dependencies:
   http: ^0.13.0
   json_annotation: ^4.0.0
   geolocator: ^7.0.1
-  shared_preferences: ^2.0.3
+  shared_preferences: ^2.0.4
 
 dev_dependencies:
   flutter_test:
