@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                     _titleBar = _SearchBar(
                       onSearched: (text) {
                         if (text.trim().isEmpty) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('Please enter a city'),
                           ));
                         } else {
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                               _setAppBar();
                             });
                           } catch (e) {
-                            Scaffold.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('$e'),
                             ));
                           }
