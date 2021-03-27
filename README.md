@@ -25,7 +25,7 @@ It showcases various Flutter programming techniques, including:
 - shared_preferences
 
 ## Requirements
-- Flutter 2.0.2 or higher
+- Flutter 2.0.3 or higher
 - Dart 2.12.0 or higher
 
 ## Setup
