@@ -27,9 +27,11 @@ It showcases various Flutter programming techniques, including:
 - mockito
 
 ## Requirements
-- Flutter 2.0.5 or higher
+- Flutter 2.0.6 or higher
 - Dart 2.12.0 or higher
 
 ## Setup
-1. Get your API key from [OpenWeatherMap](https://openweathermap.org/api).
-2. Replace the `_apiKey` constant in `weather_service.dart` with your API key.
+1. Get your API key 
+   from [OpenWeatherMap](https://openweathermap.org/api).
+2. Replace the `_apiKey` constant in `weather_service.dart` 
+   with your API key.
