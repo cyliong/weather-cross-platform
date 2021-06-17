@@ -27,7 +27,7 @@ void main() {
         'returns weather data if the API call by city name completes successfully',
         () async {
       final city = 'Singapore';
-      when(client.get(Uri.parse(weatherService.getWeatherByCityNameUrl(city))))
+      when(client.get(Uri.parse(weatherService.getWeatherUrlByCityName(city))))
           .thenAnswer((_) async => Response(weatherJson, 200));
 
       final weather = await weatherService.getWeatherByCityName(city);
@@ -44,7 +44,7 @@ void main() {
         'throws an exception if the API call by city name completes with an error',
         () {
       final city = 'Atlantis';
-      when(client.get(Uri.parse(weatherService.getWeatherByCityNameUrl(city))))
+      when(client.get(Uri.parse(weatherService.getWeatherUrlByCityName(city))))
           .thenAnswer((_) async => Response('Not Found', 404));
 
       expect(weatherService.getWeatherByCityName(city), throwsException);
@@ -57,7 +57,7 @@ void main() {
         () async {
       final latitude = 1.29, longitude = 103.85;
       when(client.get(Uri.parse(
-              weatherService.getWeatherByCoordinatesUrl(latitude, longitude))))
+              weatherService.getWeatherUrlByCoordinates(latitude, longitude))))
           .thenAnswer((_) async => Response(weatherJson, 200));
 
       final weather =
@@ -78,7 +78,7 @@ void main() {
         () {
       final latitude = 0.0, longitude = 0.0;
       when(client.get(Uri.parse(
-              weatherService.getWeatherByCoordinatesUrl(latitude, longitude))))
+              weatherService.getWeatherUrlByCoordinates(latitude, longitude))))
           .thenAnswer((_) async => Response('Not Found', 404));
 
       expect(weatherService.getWeatherByCoordinates(latitude, longitude),

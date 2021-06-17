@@ -17,16 +17,16 @@ class WeatherService {
       _instance ?? WeatherService._(client);
   WeatherService._(this._client);
 
-  String getWeatherByCityNameUrl(String cityName) => '$_baseUrl&q=$cityName';
+  String getWeatherUrlByCityName(String cityName) => '$_baseUrl&q=$cityName';
 
-  String getWeatherByCoordinatesUrl(double latitude, double longitude) =>
+  String getWeatherUrlByCoordinates(double latitude, double longitude) =>
       '$_baseUrl&lat=$latitude&lon=$longitude';
 
   Future<Weather> getWeatherByCityName(String cityName) =>
-      _getWeather(getWeatherByCityNameUrl(cityName));
+      _getWeather(getWeatherUrlByCityName(cityName));
 
   Future<Weather> getWeatherByCoordinates(double latitude, double longitude) =>
-      _getWeather(getWeatherByCoordinatesUrl(latitude, longitude));
+      _getWeather(getWeatherUrlByCoordinates(latitude, longitude));
 
   Future<Weather> getWeatherByCurrentLocation() async {
     final position = await _getCurrentLocation();
