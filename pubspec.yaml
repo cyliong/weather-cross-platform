@@ -22,7 +22,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.0.6
   json_serializable: ^4.1.4
-  mockito: ^5.0.12
+  mockito: ^5.0.13
 
 flutter:
   uses-material-design: true
