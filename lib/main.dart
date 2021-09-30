@@ -20,7 +20,7 @@ class App extends StatelessWidget {
           backgroundColor: Colors.pink,
         ),
       ),
-      home: HomePage(title: _title),
+      home: const HomePage(title: _title),
       debugShowCheckedModeBanner: false,
     );
   }
