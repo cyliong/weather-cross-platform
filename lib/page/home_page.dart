@@ -7,7 +7,7 @@ import 'package:weather/service/weather_service.dart';
 import 'package:weather/storage/storage.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
