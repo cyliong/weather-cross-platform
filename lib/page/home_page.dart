@@ -244,7 +244,10 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _SearchBar extends StatelessWidget {
-  _SearchBar({required this.onSearched});
+  const _SearchBar({
+    Key? key,
+    required this.onSearched,
+  }) : super(key: key);
 
   final ValueChanged<String> onSearched;
 
