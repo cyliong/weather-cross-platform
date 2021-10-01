@@ -256,12 +256,12 @@ class _SearchBar extends StatelessWidget {
     return TextField(
       autofocus: true,
       cursorColor: Colors.lightBlueAccent,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         border: InputBorder.none,
         hintText: 'Search a city',
       ),
       textInputAction: TextInputAction.search,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20.0,
       ),
