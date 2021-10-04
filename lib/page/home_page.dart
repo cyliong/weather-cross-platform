@@ -57,9 +57,11 @@ class _HomePageState extends State<HomePage> {
                     _titleBar = _SearchBar(
                       onSearched: (text) {
                         if (text.trim().isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('Please enter a city'),
-                          ));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please enter a city'),
+                            ),
+                          );
                         } else {
                           try {
                             _weatherFuture =
@@ -112,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                         return _buildEmptyView();
                       }
                     } else {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
                   }),
             ),
@@ -125,12 +127,12 @@ class _HomePageState extends State<HomePage> {
   Column _buildEmptyView() {
     return Column(
       children: [
-        Icon(
+        const Icon(
           Icons.cloud_off,
           size: 120,
           color: Colors.grey,
         ),
-        Text(
+        const Text(
           'No weather data',
           style: TextStyle(
             fontSize: 20,
@@ -157,7 +159,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
           ),
         ),
         const SizedBox(
@@ -188,12 +190,15 @@ class _HomePageState extends State<HomePage> {
       children: [
         Text(
           '${weather.city}, ${weather.countryCode}',
-          style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.indigo),
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo,
+          ),
         ),
         Text(
           '${weather.temperature.toStringAsFixed(0)}°C',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 80,
             color: Colors.lightBlue,
           ),
@@ -206,7 +211,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(20.0),
           child: Text(
             'Humidity: ${weather.humidity}%',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
             ),
           ),
