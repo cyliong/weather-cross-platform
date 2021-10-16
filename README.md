@@ -27,8 +27,8 @@ It showcases various Flutter programming techniques, including:
 - mockito
 
 ## Requirements
-- Flutter 2.5.2 or higher
-- Dart 2.14.3 or higher
+- Flutter 2.5.3 or higher
+- Dart 2.14.4 or higher
 
 ## Setup
 1. Get your API key 
