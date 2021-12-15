@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   http: ^0.13.4
   json_annotation: ^4.4.0
-  geolocator: ^7.7.1
+  geolocator: ^8.0.1
   shared_preferences: ^2.0.10
 
 dev_dependencies:
