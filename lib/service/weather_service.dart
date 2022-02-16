@@ -43,13 +43,23 @@ class WeatherService {
   }
 
   Future<Position> _getCurrentLocation() async {
-    bool isLocationServiceAvailable =
-        await Geolocator.isLocationServiceEnabled();
-    if (isLocationServiceAvailable) {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (serviceEnabled) {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          throw 'Location permissions are denied';
+        }
+      }
+      if (permission == LocationPermission.deniedForever) {
+        throw 'Location permissions are permanently denied';
+      }
+
       return Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.best);
     } else {
-      throw 'Location service is disabled';
+      throw 'Location services are disabled';
     }
   }
 }
